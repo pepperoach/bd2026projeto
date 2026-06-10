@@ -107,4 +107,15 @@ WHERE v.tipo IN ('Sedan', 'SUV') AND YEAR(l.data_retirada) = 2026
 GROUP BY f.id_filial, f.nome
 ORDER BY total_locacoes_sedan_suv DESC; 
 
+-- saida j: quantos e quais clientes possuem reservas ativas e quais são veículos que estão vinculados a essas reservas?
+SELECT
+c.nome AS cliente_nome,
+c.cpf, v.modelo AS veiculo_modelo,
+v.placa, l.status_locacao,
+l.data_reserva
+FROM clientes c
+JOIN locacoes l ON c.id_cliente = l.id_cliente
+JOIN veiculos v ON l.id_veiculo = v.id_veiculo
+WHERE l.status_locacao IN ('ativa', 'reservada')
+ORDER BY l.data_reserva DESC; 
 
