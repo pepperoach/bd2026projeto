@@ -32,7 +32,8 @@ group by c.id_cliente,c.nome,c.data_nasc
 order by alugueis desc;
 
 -- saída d: qual o faturamento total com locações nos anos de 2021, 2022, 2023, 2024 e 2025
-select
+create view faturamento_total_2021_a_2025
+as select
 	year(data_pagamento) as ano,
 	sum(valor_total) as soma_faturamento
 	from pagamentos
