@@ -104,18 +104,19 @@ select
     f.nome as nome_filial,
     v.tipo,
     count(v.tipo) as total_loc,
-    l.data_retirada
+    year(l.data_retirada) as ano
 from filiais f
 inner join locacoes l on f.id_filial = l.id_filial_retirada
 inner join veiculos v on l.id_veiculo = v.id_veiculo
-group by v.tipo, id_filial;
+group by v.tipo, id_filial, year(l.data_retirada);
 
 select
 	nome_filial as "filial max locações",
     tipo as "tipo de veículo",
     max(total_loc) as "locações"
 from total_loc_tipos
-where tipo in ("SUV", "sedan") and year(data_retirada) = 2026;
+where tipo in ("SUV", "sedan") and ano = 2026
+group by tipo;
 
 -- saida j: quantos e quais clientes possuem reservas ativas e quais são veículos que estão vinculados a essas reservas?
 SELECT
